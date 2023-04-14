@@ -2,6 +2,9 @@ package pages;
 
 import com.microsoft.playwright.Page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassAttribute {
     private final Page page;
     private final String button = "//button[contains(@class,'btn-primary')]";
@@ -14,8 +17,14 @@ public class ClassAttribute {
         page.navigate("http://uitestingplayground.com/classattr");
     }
 
-    public void pressTheButton() {
+    public String pressTheButtonAndGetValueFromAlertWindow() {
+        List<String> alertMessage = new ArrayList<>();
+        page.onDialog(dialog -> {
+            alertMessage.add(dialog.message());
+            dialog.accept();
+        });
         page.locator(button).click();
+        return alertMessage.get(0);
     }
 
 }
