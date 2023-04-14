@@ -38,7 +38,7 @@ class Tests extends BaseTest {
     void classAttribute() {
         String alertMessage = "Primary button pressed";
         String alertMessageFromPage;
-        ClassAttribute classAttribute = new ClassAttribute(page);
+        ClassAttributePage classAttribute = new ClassAttributePage(page);
         classAttribute.navigateToClassAttributePage();
         alertMessageFromPage = classAttribute.pressTheButtonAndGetValueFromAlertWindow();
 
@@ -49,7 +49,7 @@ class Tests extends BaseTest {
     void hiddenLayers() {
         boolean statusBefore = true;
         boolean statusAfter;
-        HiddenLayers hiddenLayers = new HiddenLayers(page);
+        HiddenLayersPage hiddenLayers = new HiddenLayersPage(page);
         hiddenLayers.navigateToClassAttributePage();
         statusAfter = hiddenLayers.pressTheGreenButton(statusBefore);
         hiddenLayers.pressTheGreenButton(statusAfter);
@@ -61,9 +61,9 @@ class Tests extends BaseTest {
     void loadDelays_01() {
         String textExpected = "Button Appearing After Delay";
         String textFromTheButton;
-        LoadDelay loadDelay = new LoadDelay(page);
+        LoadDelayPage loadDelay = new LoadDelayPage(page);
         loadDelay.navigateToLoadDelayPage();
-       textFromTheButton = loadDelay.checkThatButtonIsPresentedOnThePage();
+        textFromTheButton = loadDelay.checkThatButtonIsPresentedOnThePage();
         assertThat(textExpected).isEqualTo(textFromTheButton);
     }
 
@@ -72,11 +72,22 @@ class Tests extends BaseTest {
         String textExpected = "Button Appearing After Delay";
         String textFromTheButton;
         MainPage mainPage = new MainPage(page);
-        LoadDelay loadDelay = new LoadDelay(page);
+        LoadDelayPage loadDelay = new LoadDelayPage(page);
         mainPage.navigateToMainPage();
         mainPage.clickOnTheLinkToLoadDelayTask();
         textFromTheButton = loadDelay.checkThatButtonIsPresentedOnThePage();
         assertThat(textExpected).isEqualTo(textFromTheButton);
+    }
+
+    @Test
+    void ajaxData() {
+        String textExpected = "Data loaded with AJAX get request.";
+        String textAfterAjax;
+        AjaxDataPage ajaData = new AjaxDataPage(page);
+        ajaData.navigateToAjaxPage();
+        ajaData.pressTheButton();
+        textAfterAjax = ajaData.getDataAfterAjax();
+        assertThat(textExpected).isEqualTo(textAfterAjax);
     }
 
 }
