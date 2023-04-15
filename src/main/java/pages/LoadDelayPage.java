@@ -2,10 +2,11 @@ package pages;
 
 import com.microsoft.playwright.Page;
 
-public class LoadDelay {
+public class LoadDelayPage {
     private final Page page;
     private final String afterLoadButton = "//button[normalize-space()='Button Appearing After Delay']";
-    public LoadDelay(Page page) {
+
+    public LoadDelayPage(Page page) {
         this.page = page;
     }
 
@@ -15,6 +16,6 @@ public class LoadDelay {
 
     public String checkThatButtonIsPresentedOnThePage() {
         page.locator(afterLoadButton).waitFor();
-       return page.locator(afterLoadButton).textContent();
+        return page.locator(afterLoadButton).textContent();
     }
 }

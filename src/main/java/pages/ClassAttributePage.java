@@ -5,11 +5,11 @@ import com.microsoft.playwright.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassAttribute {
+public class ClassAttributePage {
     private final Page page;
     private final String button = "//button[contains(@class,'btn-primary')]";
 
-    public ClassAttribute(Page page) {
+    public ClassAttributePage(Page page) {
         this.page = page;
     }
 

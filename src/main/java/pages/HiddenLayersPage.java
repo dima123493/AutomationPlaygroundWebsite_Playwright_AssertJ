@@ -2,11 +2,11 @@ package pages;
 
 import com.microsoft.playwright.Page;
 
-public class HiddenLayers {
+public class HiddenLayersPage {
     private final Page page;
     private final String greenButton = "#greenButton";
 
-    public HiddenLayers(Page page) {
+    public HiddenLayersPage(Page page) {
         this.page = page;
     }
 
@@ -15,7 +15,7 @@ public class HiddenLayers {
     }
 
     public boolean pressTheGreenButton(boolean status) {
-        if(status){
+        if (status) {
             page.locator(greenButton).click();
         }
         return false;
