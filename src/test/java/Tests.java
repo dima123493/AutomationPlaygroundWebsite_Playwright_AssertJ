@@ -63,6 +63,7 @@ class Tests extends BaseTest {
         LoadDelayPage loadDelay = new LoadDelayPage(page);
         loadDelay.navigateToLoadDelayPage();
         textFromTheButton = loadDelay.checkThatButtonIsPresentedOnThePage();
+
         assertThat(textExpected).isEqualTo(textFromTheButton);
     }
 
@@ -75,6 +76,7 @@ class Tests extends BaseTest {
         mainPage.navigateToMainPage();
         mainPage.clickOnTheLinkToLoadDelayTask();
         textFromTheButton = loadDelay.checkThatButtonIsPresentedOnThePage();
+
         assertThat(textExpected).isEqualTo(textFromTheButton);
     }
 
@@ -86,6 +88,7 @@ class Tests extends BaseTest {
         ajaData.navigateToAjaxPage();
         ajaData.pressTheButton();
         textAfterAjax = ajaData.getDataAfterAjax();
+
         assertThat(textExpected).isEqualTo(textAfterAjax);
     }
 
@@ -97,6 +100,7 @@ class Tests extends BaseTest {
         clientSideDelay.navigateToAjaxPage();
         clientSideDelay.pressTheButton();
         textAfterDelay = clientSideDelay.getDataAfterDelay();
+
         assertThat(textExpected).isEqualTo(textAfterDelay);
     }
 
@@ -108,6 +112,7 @@ class Tests extends BaseTest {
         clickPage.navigateToClickPage();
         clickPage.pressTheButtonPhysically();
         textAfterClick = clickPage.getDataAfterClick();
+
         assertThat(textExpected).isEqualTo(textAfterClick);
     }
 
@@ -119,6 +124,7 @@ class Tests extends BaseTest {
         textInput.navigateToInputPage();
         textInput.inputDataIntoField(textExpected);
         buttonTextAfterClick = textInput.getDataAfterClick();
+
         assertThat(textExpected).isEqualTo(buttonTextAfterClick);
     }
 
@@ -144,6 +150,7 @@ class Tests extends BaseTest {
         dynamicTable.navigateToDynamicTablePage();
         cellResult = dynamicTable.findElementInTheTable(propertyName, browserName);
         textOnThePage = dynamicTable.findElementOnThePage();
+
         assertThat(browserName + " " + propertyName + ": " + cellResult).isEqualTo(textOnThePage);
     }
 
@@ -154,6 +161,7 @@ class Tests extends BaseTest {
         VerifyTextPage verifyText = new VerifyTextPage(page);
         verifyText.navigateToVerifyTextPage();
         textOnThePage = verifyText.findElementOnThePage();
+
         assertThat(textOnThePage).isEqualTo(welcomeMessage);
     }
 
@@ -167,5 +175,20 @@ class Tests extends BaseTest {
         int convertedValueFromProgressBar = Integer.parseInt(barResult.replaceAll("\\D+", ""));
 
         assertThat(progressShouldBeStoppedAt).isEqualTo(convertedValueFromProgressBar);
+    }
+
+    @Test
+    void visibilityTest() {
+        VisibilityPage visibility = new VisibilityPage(page);
+        visibility.navigateToVisibility();
+        visibility.clickTheHideButton();
+
+        assertThat(visibility.visibilityCapacity0Button()).isTrue();
+        assertThat(visibility.visibilityRemovedButtonButton()).isFalse();
+        assertThat(visibility.visibilityInvisibilityHiddenButtonButton()).isFalse();
+        assertThat(visibility.visibilityZeroWidthButtonButton()).isFalse();
+        assertThat(visibility.visibilityDisplayNoneButtonButton()).isFalse();
+        assertThat(visibility.visibilityOverlappedButtonButton()).isTrue();
+        assertThat(visibility.visibilityOffscreenButtonButton()).isTrue();
     }
 }
