@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Tests extends BaseTest {
+class AutomationPlaygroundTests extends BaseTest {
 
     @Test()
     void gatherLinksToTasksFromTheMainPageTest() {
@@ -191,4 +191,43 @@ class Tests extends BaseTest {
         assertThat(visibility.visibilityOverlappedButtonButton()).isTrue();
         assertThat(visibility.visibilityOffscreenButtonButton()).isTrue();
     }
+
+    @Test
+    void sampleAppTest() {
+        String userName = "SetAnyUserName";
+        SampleAppPage sampleApp = new SampleAppPage(page);
+        sampleApp.navigateToSampleApp();
+        sampleApp.login(userName);
+
+        assertThat(sampleApp.loginResult()).isEqualTo("Welcome, " + userName + "!");
+    }
+
+    @Test
+    void mouseOverTest() {
+        String amountOfClicksNeeded = "2";
+        String amountOfClicksDetected;
+        MouseOverPage mouseOver = new MouseOverPage(page);
+        mouseOver.navigateToMouseOverPage();
+        mouseOver.clickTheLink();
+        amountOfClicksDetected = mouseOver.clickResult();
+
+        assertThat(amountOfClicksNeeded).isEqualTo(amountOfClicksDetected);
+    }
+
+    @Test
+    void nonBreakingSpaceTest() {
+        NonBreakingSpacePage nonBreakingSpace = new NonBreakingSpacePage(page);
+        nonBreakingSpace.navigateToNonBreakingSpacePage();
+        nonBreakingSpace.clickTheButton();
+    }
+
+    @Test
+    void overlappedElementTest() {
+        String idValue = "7";
+        String nameValue = "Dmytro Zubenko";
+        OverlappedElementPage overlappedElement = new OverlappedElementPage(page);
+        overlappedElement.navigateToOverlappedElementPage();
+        overlappedElement.inputValuesIntoFields(idValue, nameValue);
+    }
+
 }

@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BaseTest implements TestWatcher {
+public class BaseTest {
     static PlaywrightFactory playwrightFactory;
     protected static Page page;
 
@@ -22,15 +22,15 @@ public class BaseTest implements TestWatcher {
         page = playwrightFactory.initialiseBrowser("chrome");
     }
 
-
     @RegisterExtension
-    public TestWatcher watchman= new TestWatcher() {
+    public TestWatcher watchman = new TestWatcher() {
         @Override
         public void testFailed(ExtensionContext context, Throwable cause) {
             SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy~HH-mm-ss");
             String timeStamp = df.format(new Date());
-            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/failedTestsScreenshots/TestFailed" + timeStamp + ".png")).setFullPage(true));
-
+            String testName = context.getDisplayName();
+            String testClass = String.valueOf(context.getTestClass());
+            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/failedTestsScreenshots/" + testClass + testName + timeStamp + ".png")).setFullPage(true));
         }
     };
 

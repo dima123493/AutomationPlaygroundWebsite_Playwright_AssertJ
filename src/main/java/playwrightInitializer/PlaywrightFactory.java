@@ -19,13 +19,12 @@ public class PlaywrightFactory {
                     browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
             case "safari", "webkit" ->
                     browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
-            default -> System.out.println("Pass the right browser name... (chromium, chrome" +
-                    ", firefox, safari)");
+            default -> System.out.println("Pass the right browser name (chromium/chrome" +
+                    ", gecko/firefox, webkit/safari)");
         }
 
         browserContext = browser.newContext();
         page = browserContext.newPage();
-
         return page;
     }
 
